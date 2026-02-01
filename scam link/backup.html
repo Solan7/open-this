@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Valentine</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    .box {
+        text-align: center;
+        color: #ffe6ee;
+    }
+
+    h1 {
+        font-size: 48px;
+        margin-bottom: 40px;
+    }
+
+    .small {
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 15px 40px;
+        font-size: 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        position: fixed;
+        transition: 0.15s ease;
+    }
+
+    #yes {
+        background: #ff4d6d;
+        color: white;
+        left: 43%;
+        top: 60%;
+    }
+
+    #no {
+        background: #333;
+        color: white;
+        left: 52%;
+        top: 60%;
+    }
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h1 id="question">Amélie, will you be my Valentine ?</h1>
+    <div id="subtext" class="small"></div>
+</div>
+
+<button id="yes">Yes</button>
+<button id="no">No</button>
+
+<audio id="music" src="music.mp3"></audio>
+
+<script>
+const noBtn = document.getElementById('no');
+const yesBtn = document.getElementById('yes');
+const question = document.getElementById('question');
+const subtext = document.getElementById('subtext');
+const music = document.getElementById('music');
+
+const fonds = ["fond1.jpg", "fond2.jpg", "fond3.jpg"];
+let step = 1;
+
+function changeFond() {
+    document.body.style.background = `url(${fonds[step-1]}) no-repeat center center fixed`;
+    document.body.style.backgroundSize = "cover";
+}
+
+
+// Bouton NO qui fuit la souris
+document.addEventListener('mousemove', (e) => {
+    const rect = noBtn.getBoundingClientRect();
+    const distance = Math.hypot(
+        e.clientX - (rect.left + rect.width / 2),
+        e.clientY - (rect.top + rect.height / 2)
+    );
+
+    if (distance < 180) {
+        const maxX = window.innerWidth - rect.width;
+        const maxY = window.innerHeight - rect.height;
+
+        noBtn.style.left = Math.random() * maxX + 'px';
+        noBtn.style.top = Math.random() * maxY + 'px';
+    }
+});
+
+// Gestion des étapes avec YES
+yesBtn.addEventListener('click', () => {
+    if (step === 1) {
+    step = 2;
+    changeFond();
+    question.textContent = "Are you sure ? There is no going back";
+}
+ 
+    else if (step === 2) {
+        step = 3;
+        changeFond();
+        question.textContent = "Of course you do, I knew it";
+        subtext.textContent = "see you soon babe 🫶";
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
+        music.play();
+    }
+});
+
+changeFond();
+
+</script>
+
+</body>
+</html>
