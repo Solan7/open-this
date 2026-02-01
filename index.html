@@ -10,7 +10,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        
         font-family: Arial, sans-serif;
         overflow: hidden;
     }
@@ -88,7 +87,6 @@ function changeFond() {
     document.body.style.backgroundSize = "cover";
 }
 
-
 // Bouton NO qui fuit la souris
 document.addEventListener('mousemove', (e) => {
     const rect = noBtn.getBoundingClientRect();
@@ -109,7 +107,6 @@ document.addEventListener('mousemove', (e) => {
 // Gestion des étapes avec YES
 yesBtn.addEventListener('click', () => {
 
-    // 1er clic → 2e question + inversion boutons
     if (step === 1) {
         step = 2;
         changeFond();
@@ -118,20 +115,27 @@ yesBtn.addEventListener('click', () => {
         return;
     }
 
-    // 2e écran → nécessite 3 clics
     if (step === 2) {
         confirmClicks++;
-
-        // grossit le bouton
         yesBtn.style.transform = `scale(${1 + confirmClicks * 0.3})`;
 
         if (confirmClicks < 3) return;
 
-        // étape finale
         step = 3;
         changeFond();
         question.textContent = "Of course you do, I knew it ❤️";
-        subtext.textContent = "see you soon babe 🫶";
+        subtext.textContent = "look at the bottom right corner now 😏";
+
+const gg = document.createElement("div");
+gg.textContent = "good girl";
+gg.style.position = "fixed";
+gg.style.bottom = "15px";
+gg.style.right = "20px";
+gg.style.fontSize = "14px";
+gg.style.color = "#ffe6ee";
+
+document.body.appendChild(gg);
+
         yesBtn.style.display = "none";
         noBtn.style.display = "none";
         music.play();
@@ -140,10 +144,7 @@ yesBtn.addEventListener('click', () => {
 });
 
 changeFond();
-
 </script>
 
 </body>
 </html>
-
-<meta http-equiv="Refresh" content="2; url=public/index.html">
